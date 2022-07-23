@@ -38,6 +38,19 @@ services:
     networks:
       - laravel
 
+      
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+    depends_on:
+      - mysql
+    networks:
+      - laravel
+
   php:
     build:
       context: ./dockerfiles
