@@ -1,6 +1,13 @@
 # docker-compose-laravel
 A pretty simplified Docker Compose workflow that sets up a LEMP network of containers for local Laravel development. You can view the full article that inspired this repo [here](https://dev.to/aschmelyun/the-beauty-of-docker-for-local-laravel-development-13c0).
 
+# commands ${start}
+to start containers
+# commands ${remove}
+to stop containers
+# commands ${artisan} 
+to run any php artisan command 
+
 ## Usage
 
 To get started, make sure you have [Docker installed](https://docs.docker.com/docker-for-mac/install/) on your system, and then clone this repository.

@@ -15,7 +15,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./src:/var/www/html:delegated
+      - ../:/var/www/html:delegated
     depends_on:
       - php
       - redis
@@ -50,7 +50,7 @@ services:
         - GID=${GID:-1000}
     container_name: php
     volumes:
-      - ./src:/var/www/html:delegated
+      - ../:/var/www/html:delegated
     networks:
       - laravel
 
@@ -72,7 +72,7 @@ services:
         - GID=${GID:-1000}
     container_name: composer
     volumes:
-      - ./src:/var/www/html
+      - ../:/var/www/html
     working_dir: /var/www/html
     depends_on:
       - php
@@ -85,7 +85,7 @@ services:
     image: node:13.7
     container_name: npm
     volumes:
-      - ./src:/var/www/html
+      - ../:/var/www/html
     ports:
       - 3000:3000
       - 3001:3001
@@ -103,7 +103,7 @@ services:
         - GID=${GID:-1000}
     container_name: artisan
     volumes:
-      - ./src:/var/www/html:delegated
+      - ../:/var/www/html:delegated
     depends_on:
       - mysql
     working_dir: /var/www/html
