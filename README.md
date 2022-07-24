@@ -1,12 +1,21 @@
 # docker-compose-laravel
 A pretty simplified Docker Compose workflow that sets up a LEMP network of containers for local Laravel development. You can view the full article that inspired this repo [here](https://dev.to/aschmelyun/the-beauty-of-docker-for-local-laravel-development-13c0).
 
-# commands ${start}
-to start containers
-# commands ${remove}
-to stop containers
-# commands ${artisan} 
-to run any php artisan command 
+# commands ${var}
+** start to start containers **
+** stop to stop containers **
+** rebuild to rebuild containers **
+** remove to remove containers **
+** logs to logs containers **
+** stats to stats containers **
+** mysql to mysql containers **
+** composer to composer containers **
+** npm to npm containers **
+** exec to exec containers **
+
+# commands artisan ${var} 
+** to run any php artisan command **
+
 
 ## Usage
 
@@ -22,6 +31,7 @@ Bringing up the Docker Compose network with `site` instead of just using `up`, e
 - **mysql** - `:3306`
 - **php** - `:9000`
 - **redis** - `:6379`
+- **myadmin** - `8081`
 - **mailhog** - `:8025` 
 
 Three additional containers are included that handle Composer, NPM, and Artisan commands *without* having to have these platforms installed on your local computer. Use the following command examples from your project root, modifying them to fit your particular use case.
