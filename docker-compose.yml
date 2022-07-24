@@ -1,8 +1,5 @@
 version: '3'
 
-networks:
-  laravel:
-
 services:
   site:
     build:
@@ -13,7 +10,7 @@ services:
         - GID=${GID:-1000}
     container_name: nginx
     ports:
-      - 80:80
+     - "8084:80"
     volumes:
       - ../:/var/www/html:delegated
     depends_on:
@@ -21,37 +18,23 @@ services:
       - redis
       - mysql
       - mailhog
+      - myadmin
     networks:
-      - laravel
+      - walaplus
 
-  mysql:
-    image: mariadb:10.6
-    container_name: mysql
-    restart: unless-stopped
-    tty: true
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - 3306:3306
-    environment:
-      MYSQL_DATABASE: homestead
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: secret
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
     networks:
-      - laravel
-
-    myadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - 8081:80
-    environment:
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: secret
-    depends_on:
-      - mysql
-    networks:
-      - laravel
+      - walaplus
+    volumes:
+      - dbdata:/var/lib/mysql
 
   php:
     build:
@@ -64,7 +47,7 @@ services:
     volumes:
       - ../:/var/www/html:delegated
     networks:
-      - laravel
+      - walaplus
 
   redis:
     image: redis:alpine
@@ -73,7 +56,20 @@ services:
     ports:
       - 6379:6379
     networks:
-      - laravel
+      - walaplus
+
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - ${DB_PORT}:80
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      - db
+    networks:
+      - walaplus
+
 
   composer:
     build:
@@ -91,7 +87,7 @@ services:
     user: laravel
     entrypoint: ['composer', '--ignore-platform-reqs']
     networks:
-      - laravel
+      - walaplus
 
   npm:
     image: node:13.7
@@ -104,7 +100,7 @@ services:
     working_dir: /var/www/html
     entrypoint: ['npm']
     networks:
-      - laravel
+      - walaplus
 
   artisan:
     build:
@@ -121,7 +117,7 @@ services:
     working_dir: /var/www/html
     entrypoint: ['php', '/var/www/html/artisan']
     networks:
-      - laravel
+      - walaplus
 
   mailhog:
     image: mailhog/mailhog:latest
@@ -130,4 +126,15 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - laravel
+      - walaplus
+
+networks:
+  walaplus:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
+  cachedata:
+    driver: local
+
