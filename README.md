@@ -2,16 +2,16 @@
 A pretty simplified Docker Compose workflow that sets up a LEMP network of containers for local Laravel development. You can view the full article that inspired this repo [here](https://dev.to/aschmelyun/the-beauty-of-docker-for-local-laravel-development-13c0).
 
 # commands ${var}
-** start to start containers **
-** stop to stop containers **
-** rebuild to rebuild containers **
-** remove to remove containers **
-** logs to logs containers **
-** stats to stats containers **
-** mysql to mysql containers **
-** composer to composer containers **
-** npm to npm containers **
-** exec to exec containers **
+- **start to start containers**
+- **stop to stop containers**
+- **rebuild to rebuild containers**
+- **remove to remove containers**
+- **logs to logs containers**
+- **stats to stats containers**
+- **mysql to mysql containers**
+- **composer to composer containers**
+- **npm to npm containers**
+- **exec to exec containers**
 
 # commands artisan ${var} 
 ** to run any php artisan command **
